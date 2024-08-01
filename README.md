@@ -1,6 +1,6 @@
 # Water Quality Analysis and Prediction
 
-This repository contains code for analyzing and predicting water quality parameters using various machine learning techniques and visualization tools. The primary dataset used is the "Water Quality Testing" dataset, which includes measurements such as pH, temperature, turbidity, dissolved oxygen, and conductivity.
+This repository contains code for analyzing and predicting water quality parameters using various machine learning techniques and visualization tools. The primary dataset used is the [Water Quality Testing](https://www.kaggle.com/datasets/shreyanshverma27/water-quality-testing) dataset, which includes measurements such as pH, temperature, turbidity, dissolved oxygen, and conductivity.
 
 ## Table of Contents
 

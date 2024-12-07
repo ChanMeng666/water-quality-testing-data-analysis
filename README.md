@@ -1,139 +1,95 @@
-# Water Quality Analysis and Prediction
+<div align="center">
+ <h1>Water Quality Analysis Toolkit</h1>
+ <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"/>
+ <img src="https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white"/>
+ <img src="https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=jupyter&logoColor=white"/>
+ <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white"/>
+ <img src="https://img.shields.io/badge/Matplotlib-11557C?style=flat&logo=python&logoColor=white"/>
+</div>
+<br/>
 
-This repository contains code for analyzing and predicting water quality parameters using various machine learning techniques and visualization tools. The primary dataset used is the [Water Quality Testing](https://www.kaggle.com/datasets/shreyanshverma27/water-quality-testing) dataset, which includes measurements such as pH, temperature, turbidity, dissolved oxygen, and conductivity.
+A comprehensive toolkit for analyzing and visualizing water quality data. This project provides tools and techniques for monitoring water quality parameters, performing statistical analysis, and developing predictive models for water quality assessment.
 
-## Table of Contents
+# Features
 
-- [Installation](#installation)
-- [Dataset](#dataset)
-- [Usage](#usage)
-- [Visualization](#visualization)
-- [Modeling](#modeling)
-- [Contributing](#contributing)
-- [License](#license)
+### 📊 Rich Data Visualization
+Generate insightful visualizations including distribution plots, correlation matrices, and scatter plots to understand water quality parameters and their relationships.
+
+### 📈 Statistical Analysis
+Perform detailed statistical analysis including descriptive statistics, correlation analysis, and hypothesis testing on water quality parameters.
+
+### 🤖 Predictive Modeling
+Implement machine learning models to predict water quality parameters using features like pH, temperature, turbidity, and dissolved oxygen levels.
+
+### 📉 Time Series Analysis
+Analyze trends and patterns in water quality parameters over time to identify seasonal variations and long-term changes.
+
+### 📋 Automated Reporting
+Generate comprehensive reports summarizing water quality analysis results and key findings.
 
 ## Installation
 
-To run this code, you need to have Python installed along with the necessary libraries. You can install the required libraries using pip:
-
+1. Clone the repository:
 ```bash
-pip install pandas scikit-learn matplotlib plotly seaborn statsmodels
+git clone https://github.com/ChanMeng666/water-quality-testing-data-analysis.git
+cd water-quality-testing-data-analysis
 ```
 
-## Dataset
-
-The dataset used in this project is the "Water Quality Testing" dataset, which contains the following columns:
-
-- `Sample ID`
-- `pH`
-- `Temperature (°C)`
-- `Turbidity (NTU)`
-- `Dissolved Oxygen (mg/L)`
-- `Conductivity (µS/cm)`
+2. Install required packages:
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn statsmodels plotly
+```
 
 ## Usage
 
-1. **Load the dataset:**
+1. **Load and explore the data:**
+```python
+import pandas as pd
+water_quality_data = pd.read_csv('Water Quality Testing.csv')
+print(water_quality_data.describe())
+```
 
-    ```python
-    import pandas as pd
-    
-    water_quality_data = pd.read_csv('/path/to/Water Quality Testing.csv')
-    ```
+2. **Create visualizations:**
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-2. **Basic data exploration:**
+# Distribution of pH values
+plt.figure(figsize=(10, 6))
+sns.histplot(water_quality_data['pH'], kde=True)
+plt.title('Distribution of pH Values')
+plt.show()
+```
 
-    ```python
-    water_quality_data.describe()
-    water_quality_data.info()
-    ```
+3. **Perform statistical analysis:**
+```python
+# Correlation analysis
+correlation = water_quality_data['pH'].corr(water_quality_data['Dissolved Oxygen (mg/L)'])
+print('Correlation coefficient:', correlation)
+```
 
-3. **Linear Regression Model:**
+4. **Build predictive models:**
+```python
+from sklearn import linear_model
 
-    ```python
-    from sklearn import linear_model
-    
-    reg = linear_model.LinearRegression()
-    reg.fit(water_quality_data[['pH', 'Temperature (°C)', 'Turbidity (NTU)', 'Dissolved Oxygen (mg/L)']], water_quality_data['Conductivity (µS/cm)'])
-    
-    print("Intercept:", reg.intercept_)
-    print("Coefficients:", reg.coef_)
-    ```
+# Predict conductivity using multiple parameters
+X = water_quality_data[['pH', 'Temperature (°C)', 'Turbidity (NTU)', 'Dissolved Oxygen (mg/L)']]
+y = water_quality_data['Conductivity (µS/cm)']
 
-4. **Make predictions:**
+model = linear_model.LinearRegression()
+model.fit(X, y)
+```
 
-    ```python
-    predictions = reg.predict(water_quality_data[['pH', 'Temperature (°C)', 'Turbidity (NTU)', 'Dissolved Oxygen (mg/L)']])
-    water_quality_data['Prediction of Conductivity (µS/cm)'] = predictions
-    ```
-
-## Visualization
-
-The repository includes various visualizations to better understand the relationships between different water quality parameters.
-
-1. **Pairplot using Seaborn:**
-
-    ```python
-    import seaborn as sns
-    
-    sns.set_style('whitegrid')
-    sns.pairplot(water_quality_data, kind='scatter', height=3.5)
-    plt.show()
-    ```
-
-2. **Scatter plot using Matplotlib:**
-
-    ```python
-    import matplotlib.pyplot as plt
-    
-    plt.scatter(x=water_quality_data['Dissolved Oxygen (mg/L)'], y=water_quality_data['Conductivity (µS/cm)'], marker='x')
-    plt.xlabel('Dissolved Oxygen (mg/L)')
-    plt.ylabel('Conductivity (µS/cm)')
-    plt.show()
-    ```
-
-3. **Histogram of pH:**
-
-    ```python
-    sns.histplot(water_quality_data, x='pH')
-    plt.show()
-    ```
-
-## Modeling
-
-1. **Ordinary Least Squares (OLS) Regression:**
-
-    ```python
-    import statsmodels.api as sma
-    import numpy as np
-    
-    a = water_quality_data['pH']
-    b = water_quality_data['Temperature (°C)']
-    a = np.array(a)
-    b = np.array(b)
-    a = sma.add_constant(a)
-    model = sma.OLS(b, a).fit()
-    print(model.summary())
-    ```
-
-2. **Linear Regression with Train/Test Split:**
-
-    ```python
-    from sklearn.model_selection import train_test_split
-    
-    features = ['Turbidity (NTU)', 'Dissolved Oxygen (mg/L)']
-    X_train, X_test, y_train, y_test = train_test_split(water_quality_data[features], water_quality_data['Conductivity (µS/cm)'], test_size=0.2)
-    
-    regre = linear_model.LinearRegression()
-    regre.fit(X_train, y_train)
-    predictions = regre.predict(X_test)
-    print("Predictions:", predictions)
-    ```
+## Tech Stack
+![Python](https://img.shields.io/badge/python-%2314354C.svg?style=for-the-badge&logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+![Scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black)
+![Seaborn](https://img.shields.io/badge/seaborn-%23323330.svg?style=for-the-badge&logo=python&logoColor=white)
 
 ## Contributing
-
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

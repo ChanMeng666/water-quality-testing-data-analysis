@@ -90,4 +90,4 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 ## Author
 
-**Chan Meng** - [GitHub](https://github.com/ChanMeng666) · [LinkedIn](https://www.linkedin.com/in/chanmeng666/) · [Website](https://chanmeng.live/)
+**Chan Meng** - [GitHub](https://github.com/ChanMeng666) · [LinkedIn](https://www.linkedin.com/in/chanmeng666/) · [Website](https://chanmeng.org/)
